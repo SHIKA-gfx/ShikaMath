@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/TestApp.dir/tests/MathTest.cpp.o -o TestApp  libShikaMath.a 

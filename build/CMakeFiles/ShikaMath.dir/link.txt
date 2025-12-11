@@ -1,0 +1,2 @@
+/usr/bin/ar qc libShikaMath.a CMakeFiles/ShikaMath.dir/src/Vector3.cpp.o
+/usr/bin/ranlib libShikaMath.a

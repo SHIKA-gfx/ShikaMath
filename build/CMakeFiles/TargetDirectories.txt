@@ -1,0 +1,4 @@
+/workspaces/ShikaMath/build/CMakeFiles/ShikaMath.dir
+/workspaces/ShikaMath/build/CMakeFiles/TestApp.dir
+/workspaces/ShikaMath/build/CMakeFiles/edit_cache.dir
+/workspaces/ShikaMath/build/CMakeFiles/rebuild_cache.dir

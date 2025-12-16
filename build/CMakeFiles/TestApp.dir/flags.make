@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/workspaces/ShikaMath/inc
+CXX_INCLUDES = -I/workspaces/ShikaMath/include
 
 CXX_FLAGS = -std=gnu++17 -mavx -mfma
 

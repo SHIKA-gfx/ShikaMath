@@ -5,7 +5,7 @@ project(ShikaMath VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories(inc)
+include_directories(include)
 
 set(SOURCE_FILES
     include/Common.h

@@ -16,7 +16,7 @@ namespace Shika {
 
    constexpr inline float ToRadian(float deg) {
         return deg * (PI / 180.0f);
-    }Feat: Initialize project with SIMD-aligned Vector3 and CMake setup
+    }
 
     constexpr inline float ToDegree(float rad) {
         return rad * (180.0f / PI);

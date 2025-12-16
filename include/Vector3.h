@@ -27,6 +27,33 @@ namespace Shika {
          // 3. SIMD Constructor
          Vector3(__m128 _v)
          : v(_v) {};
+
+      public : 
+         // Operator Overloading
+         // Add operator
+         Vector3 operator+(const Vector3& other) const {
+            return Vector3( _mm_add_ps(v, other.v) );
+         }
+         // Sub operator
+         Vector3 operator-(const Vector3& other) const {
+            return Vector3( _mm_sub_ps(v, other.v) );
+         }
+         // Scalar Multiplication operator (*Scalar)
+         Vector3 operator*(float scalar) const {
+            __m128 s = _mm_set1_ps(scalar);
+            return Vector3( _mm_mul_ps(v, s) );
+         }
+         // Component-wise Multiplication operator (*Vector3)
+         Vector3 operator*(const Vector3& other) const {
+            return Vector3( _mm_mul_ps(v, other.v) );
+         }
+ 
+         // Compound Assignment operator (*=Scalar)
+         Vector3& operator*=(float scalar) {
+            __m128 s = _mm_set1_ps(scalar);
+            v = _mm_mul_ps(v, s);
+            return *this;
+         }
    };
 
 }

@@ -38,5 +38,21 @@ int main() {
         printf("[FAIL] Values are corrupted. Check _mm_set_ps order.\n");
     }
 
+    printf("\n=== Add, Sub Operator Test ===\n");
+    Vector3 a(1.0f, 2.0f, 3.0f);
+    Vector3 b(4.0f, 5.0f, 6.0f);
+    Vector3 c = a + b;
+
+    printf("Vector3 c stored x=%.1f, y=%.1f, z=%.1f\n", c.x, c.y, c.z);
+
+
+    printf("\n=== Multiplication Operator Test ===\n");
+    Vector3 Vcw(2.0f, 0.0f, 1.0f);
+    Vector3 scalar = a * 2.0f;
+    Vector3 component = a * Vcw; 
+
+    printf("Vector3 scalar stored x=%.1f, y=%.1f, z=%.1f\n", scalar.x, scalar.y, scalar.z);
+    printf("Vector3 component stored x=%.1f, y=%.1f, z=%.1f\n", component.x, component.y, component.z);
+
     return 0;
 }

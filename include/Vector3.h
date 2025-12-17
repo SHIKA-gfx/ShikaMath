@@ -54,6 +54,41 @@ namespace Shika {
             v = _mm_mul_ps(v, s);
             return *this;
          }
+
+      public : 
+         // Vector Geometry Functions
+         // Dot Product
+         float Dot(const Vector3& other) const {
+            __m128 mul = _mm_dp_ps(v, other.v, 0x7F);
+            return _mm_cvtss_f32(mul);
+         }
+
+         // Length squared
+         float LengthSq() const {
+            return Dot(*this);
+         }
+
+         // Length / Magnitude
+         float Length() const {
+            return std::sqrt(LengthSq());
+         }
+
+         // Normalize
+         void Normalize() {
+            float len = Length();
+
+            if (len < EPSILON) return;
+
+            *this *= (1.0f / len);
+         }
+         // Return Normalized Vector3
+         Vector3 Normalized() const {
+            Vector3 temp = *this;
+            temp.Normalize();
+            return temp;
+         }
+   
+
    };
 
 }

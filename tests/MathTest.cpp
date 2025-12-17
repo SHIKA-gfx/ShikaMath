@@ -54,5 +54,20 @@ int main() {
     printf("Vector3 scalar stored x=%.1f, y=%.1f, z=%.1f\n", scalar.x, scalar.y, scalar.z);
     printf("Vector3 component stored x=%.1f, y=%.1f, z=%.1f\n", component.x, component.y, component.z);
 
+
+    printf("\n=== Dot Product and Normalize Test ===\n");
+    Vector3 d1(1.0f, 0.0f, 0.0f);
+    Vector3 d2(0.0f, 1.0f, 0.0f);
+    float dot = d1.Dot(d2);
+    printf("Dot Product of (1.0f, 0.0f, 0.0f) and (0.0f, 1.0f, 0.0f): %.2f\n", dot);
+    dot = d1.Dot(d1);
+    printf("Dot Product of (1.0f, 0.0f, 0.0f) and (1.0f, 0.0f, 0.0f): %.2f\n", dot);
+    Vector3 vLen(3.0f, 4.0f, 0.0f);
+    float length = vLen.Length();
+    printf("Length of (3.0f, 4.0f, 0.0f): %.2f \n", length);
+    Vector3 norm = vLen * (1.0f / length);
+    printf("Normalized Vector(3.0f, 4.0f, 0.0f): x=%.2f, y=%.2f, z=%.2f\n", norm.x, norm.y, norm.z);
+
+
     return 0;
 }

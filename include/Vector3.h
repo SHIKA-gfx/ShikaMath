@@ -87,6 +87,17 @@ namespace Shika {
             temp.Normalize();
             return temp;
          }
+
+         // Cross Product
+         Vector3 Cross(const Vector3& other) const {
+            
+            __m128 a_yzx = _mm_shuffle_ps(v, v, _MM_SHUFFLE(3, 0, 2, 1));
+            __m128 a_zxy = _mm_shuffle_ps(v, v, _MM_SHUFFLE(3, 1, 0, 2));
+            __m128 b_yzx = _mm_shuffle_ps(other.v, other.v, _MM_SHUFFLE(3, 0, 2, 1));
+            __m128 b_zxy = _mm_shuffle_ps(other.v, other.v, _MM_SHUFFLE(3, 1, 0, 2));
+
+            return Vector3( _mm_sub_ps(_mm_mul_ps(a_yzx, b_zxy), _mm_mul_ps(a_zxy, b_yzx) ) );
+         }
    
 
    };

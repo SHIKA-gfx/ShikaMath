@@ -68,6 +68,14 @@ int main() {
     Vector3 norm = vLen * (1.0f / length);
     printf("Normalized Vector(3.0f, 4.0f, 0.0f): x=%.2f, y=%.2f, z=%.2f\n", norm.x, norm.y, norm.z);
 
+    printf("\n=== Cross Product Test ===\n");
+    Vector3 Xaxis(1.0f, 0.0f, 0.0f);
+    Vector3 Yaxis(0.0f, 1.0f, 0.0f);
+    Vector3 Zaxis = Xaxis.Cross(Yaxis);
+    Vector3 Zaxis_n = Yaxis.Cross(Xaxis);
+    printf("Cross Product of Xaxis and Yaxis: x=%.2f, y=%.2f, z=%.2f\n", Zaxis.x, Zaxis.y, Zaxis.z);
+    printf("Cross Product of Yaxis and Xaxis: x=%.2f, y=%.2f, z=%.2f\n", Zaxis_n.x, Zaxis_n.y, Zaxis_n.z);
+
 
     return 0;
 }

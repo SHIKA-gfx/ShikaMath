@@ -313,10 +313,13 @@ CMakeFiles/TestApp.dir/tests/MathTest.cpp.o: /workspaces/ShikaMath/tests/MathTes
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h \
   /workspaces/ShikaMath/include/Common.h \
+  /workspaces/ShikaMath/include/Matrix4x4.h \
   /workspaces/ShikaMath/include/Vector3.h
 
 
 /workspaces/ShikaMath/include/Vector3.h:
+
+/workspaces/ShikaMath/include/Matrix4x4.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h:
 

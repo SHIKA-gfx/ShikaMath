@@ -271,4 +271,5 @@ CMakeFiles/TestApp.dir/tests/MathTest.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/amxcomplexintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/prfchwintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/keylockerintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/amxfp16intrin.h
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/amxfp16intrin.h \
+ /workspaces/ShikaMath/tests/../include/Matrix4x4.h

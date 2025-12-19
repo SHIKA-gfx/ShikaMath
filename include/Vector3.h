@@ -7,13 +7,13 @@ namespace Shika {
    struct alignas(16) Vector3 {
       public : 
          union {
-            //Anonymous struct
+            // Anonymous struct
             struct {float x, y, z;};
  
-            //SIMD register
+            // SIMD register
             __m128 v;
 
-            //for indexing
+            // for indexing
             float e[4];
          };
 

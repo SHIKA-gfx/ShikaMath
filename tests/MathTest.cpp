@@ -1,11 +1,13 @@
 #include <iostream>
 #include <cstdio>
 #include "../include/Vector3.h" 
+#include "../include/Matrix4x4.h" 
 
 using namespace Shika;
 
 int main() {
 
+/*
     printf("=== Memory Alignment Test ===\n");
     printf("Size of Vector3: %zu bytes (Expected: 16)\n", sizeof(Vector3));
     
@@ -76,6 +78,18 @@ int main() {
     printf("Cross Product of Xaxis and Yaxis: x=%.2f, y=%.2f, z=%.2f\n", Zaxis.x, Zaxis.y, Zaxis.z);
     printf("Cross Product of Yaxis and Xaxis: x=%.2f, y=%.2f, z=%.2f\n", Zaxis_n.x, Zaxis_n.y, Zaxis_n.z);
 
+*/
+    printf("\n=== Matrix4x4 first Test ===\n");
+    Matrix4x4 mat1;
+    printf("Size of Matrix4x4 is %.2ld\n", sizeof(Matrix4x4));
+    mat1 = Matrix4x4::Identity();
+    printf("[ Identity Matrix ]\n");
+    for(int i=0; i<4; i++){
+        for(int j=0; j<4; j++)
+            printf("%.2f ", mat1.m[i][j]);
+        printf("\n");
+    }
+    
 
     return 0;
 }

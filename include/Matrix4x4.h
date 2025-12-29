@@ -38,6 +38,34 @@ namespace Shika {
             return mat;
           }
 
+       private : 
+          // Helper for Multiplication One Row
+          inline __m128 MulRow(__m128 rowVec, const Matrix4x4 other) const{
+            // Broadcast x, y, z, w
+            __m128 x = _mm_shuffle_ps(rowVec, rowVec, _MM_SHUFFLE(0, 0, 0, 0));
+            __m128 y = _mm_shuffle_ps(rowVec, rowVec, _MM_SHUFFLE(1, 1, 1, 1));
+            __m128 z = _mm_shuffle_ps(rowVec, rowVec, _MM_SHUFFLE(2, 2, 2, 2));
+            __m128 w = _mm_shuffle_ps(rowVec, rowVec, _MM_SHUFFLE(3, 3, 3, 3));
+            
+            __m128 r = _mm_mul_ps(x, other.row[0]);
+            r = _mm_add_ps(r, _mm_mul_ps(y, other.row[1]));
+            r = _mm_add_ps(r, _mm_mul_ps(z, other.row[2]));
+            r = _mm_add_ps(r, _mm_mul_ps(w, other.row[3]));
+
+            return r;
+          }
+
+       public : 
+          // Matrix Multiplication Operator
+          Matrix4x4 operator*(const Matrix4x4& other) const{
+            Matrix4x4 result;
+            result.row[0] = MulRow(row[0], other);
+            result.row[1] = MulRow(row[1], other);
+            result.row[2] = MulRow(row[2], other);
+            result.row[3] = MulRow(row[3], other);
+            return result;
+          }
+
 
     };
 }

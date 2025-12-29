@@ -78,7 +78,7 @@ int main() {
     printf("Cross Product of Xaxis and Yaxis: x=%.2f, y=%.2f, z=%.2f\n", Zaxis.x, Zaxis.y, Zaxis.z);
     printf("Cross Product of Yaxis and Xaxis: x=%.2f, y=%.2f, z=%.2f\n", Zaxis_n.x, Zaxis_n.y, Zaxis_n.z);
 
-*/
+
     printf("\n=== Matrix4x4 first Test ===\n");
     Matrix4x4 mat1;
     printf("Size of Matrix4x4 is %.2ld\n", sizeof(Matrix4x4));
@@ -89,6 +89,33 @@ int main() {
             printf("%.2f ", mat1.m[i][j]);
         printf("\n");
     }
+
+*/
+   printf("\n=== Matrix Multiplication Test ===\n");
+   Matrix4x4 mat1;
+   mat1 = Matrix4x4::Identity();
+   printf("[ Identity Matrix * Identity Matrix ]\n");
+   mat1 = mat1*mat1;
+    for(int i=0; i<4; i++){
+        for(int j=0; j<4; j++)
+            printf("%.2f ", mat1.m[i][j]);
+        printf("\n");
+    }
+
+   Matrix4x4 mata, matb;
+   for(int i=0; i<4; i++){
+    mata.row[i] = _mm_set_ps(1, 1, 1, 1);
+   }
+   for(int i=0; i<4; i++){
+    matb.row[i] = _mm_set_ps(2, 2, 2, 2);
+   }
+   printf("[ 1.0 Matrix * 2.0 Matrix ]\n");
+   Matrix4x4 result = mata*matb;
+   for(int i=0; i<4; i++){
+       for(int j=0; j<4; j++)
+            printf("%.2f ", result.m[i][j]);
+        printf("\n");
+   }
     
 
     return 0;

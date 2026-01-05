@@ -95,7 +95,7 @@ make
 
 - [x] Software Wireframe Rendering (PPM Output)
 
-- [ ] Barycentric Triangle Rasterization (Solid filling)
+- [x] Barycentric Triangle Rasterization (Solid filling)
 
 - [ ] Quaternion implementation for robust rotations
 

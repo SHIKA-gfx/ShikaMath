@@ -27,6 +27,11 @@ void DrawFilledTriangle(Canvas& canvas, const Vector3& v0, const Vector3& v1, co
     maxX = std::min(maxX, canvas.GetWidth() - 1);
     maxY = std::min(maxY, canvas.GetHeight() - 1);
 
+    // The Area of the Triangle
+    float area = EdgeFunction(v0, v1, v2);
+
+    if (area >= 0) return;
+
     for (int y = minY; y <= maxY; y++) {
         for (int x = minX; x <= maxX; x++) {
             // Miidle point of Pixel (+0.5f)
@@ -39,7 +44,18 @@ void DrawFilledTriangle(Canvas& canvas, const Vector3& v0, const Vector3& v1, co
 
             // Put Pixef if pass Edge Test
             if (w0 <= 0 && w1 <= 0 && w2 <= 0) {
-                canvas.PutPixel(x, y, color);
+                // alpha + beta + gamma = 1
+                float alpha = w0 / area;
+                float beta  = w1 / area;
+                float gamma = w2 / area;
+
+                // Depth Interpolation
+                float z = alpha * v0.z + beta * v1.z + gamma * v2.z;
+
+                if (z < canvas.GetDepth(x, y)) {
+                    canvas.SetDepth(x, y, z);      // Depth Update
+                    canvas.PutPixel(x, y, color);  // Color Update
+                }
             }
         }
     }
@@ -69,10 +85,18 @@ int main() {
     Canvas canvas(width, height);
 
     // --- Triangle ---
-    Vector3 vertices[3] = {
-        { 0.0f, 1.0f, 0.0f}, // Top
-        { 1.0f, -1.0f, 0.0f}, // Right Bottom
-        { -1.0f, -1.0f, 0.0f}, // Left Bottom
+    // Red Triangle : z=0.0
+    Vector3 tri1[3] = {
+        Vector3(0.0f,  0.5f, 0.0f),
+        Vector3(0.5f, -0.5f, 0.0f),
+        Vector3(-0.5f, -0.5f, 0.0f)
+    };
+
+    // Blue Triangle : z=0.5
+    Vector3 tri2[3] = {
+        Vector3(0.2f,  0.5f, 0.5f),
+        Vector3(0.7f, -0.5f, 0.5f),
+        Vector3(-0.3f, -0.5f, 0.5f)
     };
 
     // --- MVP Matrix ---
@@ -82,48 +106,36 @@ int main() {
 
     Matrix4x4 matMVP = matWorld * matView * matProj;
 
-    // --- Vertex Processing ---
-    Point2D screenPoints[3];
+    auto ProcessAndDraw = [&](Vector3* verts, Color c) {
+        Point2D screenPts[3];
+        float depth[3]; // Save Depth(z) or w value on Screen
 
-    for (int i = 0; i < 3; ++i) {
-        Vector3 v = vertices[i];
+        for(int i=0; i<3; ++i) {
+            __m128 raw = Matrix4x4::TransformVector(verts[i], matMVP);
+            alignas(16) float res[4]; _mm_store_ps(res, raw);
+            
+            float x = res[0], y = res[1], z = res[2], w = res[3];
+            
+            if (w != 0.0f) { x /= w; y /= w; z /= w; } 
 
-        // MVP Transform
-        __m128 raw = Matrix4x4::TransformVector(v, matMVP);
-        
-        alignas(16) float res[4];
-        _mm_store_ps(res, raw);
-
-        float x = res[0];
-        float y = res[1];
-        float z = res[2];
-        float w = res[3];
-
-        // Perspective Divide
-        if (w != 0.0f) {
-            x /= w;
-            y /= w;
-            z /= w; 
+            screenPts[i].x = (int)((x + 1.0f) * 0.5f * width);
+            screenPts[i].y = (int)((1.0f - y) * 0.5f * height);
+            depth[i] = z; // Save Depth
         }
 
-        // Viewport Transform
-        int screenX = (int)((x + 1.0f) * 0.5f * width);
-        int screenY = (int)((1.0f - y) * 0.5f * height);
+        Vector3 p0((float)screenPts[0].x, (float)screenPts[0].y, depth[0]);
+        Vector3 p1((float)screenPts[1].x, (float)screenPts[1].y, depth[1]);
+        Vector3 p2((float)screenPts[2].x, (float)screenPts[2].y, depth[2]);
 
-        screenPoints[i] = { screenX, screenY };
+        DrawFilledTriangle(canvas, p0, p1, p2, c);
+    };
 
-        // print coordinates for debug
-        printf("V%d: (%.1f, %.1f, %.1f) -> Screen(%d, %d)\n", i, v.x, v.y, v.z, screenX, screenY);
-    }
+    canvas.ClearDepth();
 
-    // Draw (Rasterization)
-    Vector3 p0(screenPoints[0].x, screenPoints[0].y, 0.0f);
-    Vector3 p1(screenPoints[1].x, screenPoints[1].y, 0.0f);
-    Vector3 p2(screenPoints[2].x, screenPoints[2].y, 0.0f);
-    
-    DrawFilledTriangle(canvas, p0, p1, p2, Color::Red());
+    ProcessAndDraw(tri1, Color::Red());  // Draw Red First
+    ProcessAndDraw(tri2, Color::Blue());
 
-    canvas.SaveToPPM("solid_triangle.ppm");
+    canvas.SaveToPPM("zbuffer_test.ppm");
 
     return 0;
 }

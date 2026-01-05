@@ -26,11 +26,29 @@ namespace Shika {
            int width;
            int height;
            std::vector<Color> pixels;
+           std::vector<float> zBuffer;
         
         public:
            Canvas(int w, int h) : width(w), height(h) {
                // Initialization (Black)
                pixels.resize(w * h, Color::Black());
+               zBuffer.resize(w * h, 1.0f);
+           }
+
+           // Clear Depth Buffer
+           void ClearDepth() {
+               std::fill(zBuffer.begin(), zBuffer.end(), 1.0f);
+           }
+
+           // Depth Value Read/Write
+           float GetDepth(int x, int y) const {
+               if (x < 0 || x >= width || y < 0 || y >= height) return 0.0f;
+               return zBuffer[y * width + x];
+           }
+
+           void SetDepth(int x, int y, float depth) {
+              if (x < 0 || x >= width || y < 0 || y >= height) return;
+              zBuffer[y * width + x] = depth;
            }
 
            // Put Pixel specific coordinates
@@ -42,7 +60,7 @@ namespace Shika {
                pixels[y * width + x] = color;
            }
 
-           // Remove All
+           // Clear Screen
            void Clear(const Color& color = Color::Black()) {
                std::fill(pixels.begin(), pixels.end(), color);
            }

@@ -36,13 +36,13 @@
 
 <table>
   <tr>
-    <td align="center" width="50%">
+    <td align="center" width="33%">
       <img src="assets/firstcube.png" width="100%">
       <br>
       <b>4. Lighting Pipeline</b><br>
       <sub>Flat Shading (N·L) & Face Culling</sub>
     </td>
-    <td align="center" width="50%">
+    <td align="center" width="33%">
       <img src="assets/lastcube.png" width="100%">
       <br>
       <b>5. Quaternion Dynamics</b><br>

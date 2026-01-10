@@ -8,12 +8,50 @@
   ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey?style=flat-square)
 
 > **A High-Performance,<br>SIMD-Accelerated C++ Math Library for 3D Graphics.**
-<br>
-
-![Render Preview](assets/ShikaMath_Triangle.png)
 
 <br>
-*Figure 1: Software rendering output demonstrating a 3D triangle transformed by Model-View-Projection matrices calculated entirely by ShikaMath.*
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="assets/ShikaMath_Triangle.png" width="100%">
+      <br>
+      <b>1. Wireframe</b><br>
+      <sub>MVP Matrix & Bresenham</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/solid_triangle.png" width="100%">
+      <br>
+      <b>2. Rasterization</b><br>
+      <sub>Barycentric Coords</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/zbuffer_test.png" width="100%">
+      <br>
+      <b>3. Z-Buffer</b><br>
+      <sub>Depth Test & Occlusion</sub>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/firstcube.png" width="100%">
+      <br>
+      <b>4. Lighting Pipeline</b><br>
+      <sub>Flat Shading (N·L) & Face Culling</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/lastcube.png" width="100%">
+      <br>
+      <b>5. Quaternion Dynamics</b><br>
+      <sub>Gimbal-Lock Free Rotation & Color Attr</sub>
+    </td>
+  </tr>
+</table>
+<br>
+<i>All images are rendered via CPU software rasterization using ShikaMath's linear algebra engine.</i>
 
 </div>
 
@@ -97,9 +135,9 @@ make
 
 - [x] Barycentric Triangle Rasterization (Solid filling)
 
-- [ ] Quaternion implementation for robust rotations
+- [x] Quaternion implementation for robust rotations
 
-- [ ] Integration with DirectX 12 Rendering Pipeline
+- [ ] Integration with Vulkan Rendering Pipeline(Next Steps)
 
 ## 📄 License
 This project is licensed under the **MIT License**.  

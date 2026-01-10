@@ -8,12 +8,55 @@
   ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey?style=flat-square)
 
 > **A High-Performance,<br>SIMD-Accelerated C++ Math Library for 3D Graphics.** <br>（3Dグラフィックスのための、高性能かつSIMDアクセラレーション対応C++数学ライブラリ）
-<br>
-
-![Render Preview](assets/ShikaMath_Triangle.png)
 
 <br>
-*Figure 1: ShikaMathによって計算されたモデル・ビュー・プロジェクション（MVP）行列を用いて変換された3D三角形のソフトウェアレンダリング出力結果*
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="assets/ShikaMath_Triangle.png" width="100%">
+      <br>
+      <b>1. ワイヤーフレーム</b><br>
+      (Wireframe Assembly)<br>
+      <sub>MVP行列変換 & ブレゼンハム法</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/solid_triangle.png" width="100%">
+      <br>
+      <b>2. ラスタライズ</b><br>
+      (Rasterization)<br>
+      <sub>重心座標系 (Barycentric Coords)</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/zbuffer_test.png" width="100%">
+      <br>
+      <b>3. Zバッファ</b><br>
+      (Depth Testing)<br>
+      <sub>深度テスト & 隠面消去</sub>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/firstcube.png" width="100%">
+      <br>
+      <b>4. ライティング処理</b><br>
+      (Lighting Pipeline)<br>
+      <sub>フラットシェーディング (N·L) & 背面カリング</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/lastcube.png" width="100%">
+      <br>
+      <b>5. クォータニオン制御</b><br>
+      (Quaternion Dynamics)<br>
+      <sub>ジンバルロック回避 & カラー属性補間</sub>
+    </td>
+  </tr>
+</table>
+<br>
+<i>掲載画像はすべて、ShikaMathの線形代数エンジンを用いたCPUソフトウェアラスタライズによる出力結果です。</i>
 
 </div>
 
@@ -97,9 +140,9 @@ make
 
 - [x] 重心座標を用いた三角形ラスタライズ (ソリッド塗りつぶし)
 
-- [ ] ロバストな回転のためのクォータニオン (四元数) 実装
+- [x] ロバストな回転のためのクォータニオン (四元数) 実装
 
-- [ ] DirectX 12 レンダリングパイプラインとの統合
+- [ ] Vulkan レンダリングパイプラインとの統合 (Next Goal)
 
 ## 📄 License
 本プロジェクトは **MIT License** の下で公開されています。

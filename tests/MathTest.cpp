@@ -5,8 +5,9 @@
 #include "../include/Canvas.h"
 #include "../include/Vector3.h" 
 #include "../include/Matrix4x4.h" 
-#include "Mesh.h"
-#include "Rasterizer.h"
+#include "../include/Quaternion.h"
+#include "../include/Mesh.h"
+#include "../include/Rasterizer.h"
 
 using namespace Shika;
 
@@ -19,9 +20,14 @@ int main() {
     Mesh cube = Mesh::CreateCube();
 
     // --- MVP Matrix ---
-    Matrix4x4 matWorld = Matrix4x4::RotationX(ToRadian(30)) * Matrix4x4::RotationY(ToRadian(45)) * Matrix4x4::Translation({0, 0, 15});
+    Quaternion qX = Quaternion::RotationAxis(Vector3(1, 0, 0), ToRadian(-30));
+    Quaternion qY = Quaternion::RotationAxis(Vector3(0, 1, 0), ToRadian(-30));
+    Quaternion qFinal = qY * qX;
+    Matrix4x4 matRotation = qFinal.ToMatrix();
+    
+    Matrix4x4 matWorld = matRotation * Matrix4x4::Translation(Vector3(0, 0, 16.0f));
     Matrix4x4 matView = Matrix4x4::LookAtLH({0, 0, 0}, {0, 0, 1}, {0, 1, 0});
-    Matrix4x4 matProj = Matrix4x4::PerspectiveFovLH(ToRadian(50), (float)width/height, 0.1f, 100.0f);
+    Matrix4x4 matProj = Matrix4x4::PerspectiveFovLH(ToRadian(30), (float)width/height, 0.1f, 100.0f);
 
     Matrix4x4 matMVP = matWorld * matView * matProj;
 

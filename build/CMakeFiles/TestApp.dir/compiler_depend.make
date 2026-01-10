@@ -330,19 +330,20 @@ CMakeFiles/TestApp.dir/tests/MathTest.cpp.o: /workspaces/ShikaMath/tests/MathTes
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveoptintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h \
-  /workspaces/ShikaMath/include/Mesh.h \
-  /workspaces/ShikaMath/include/Rasterizer.h \
   /workspaces/ShikaMath/include/Canvas.h \
   /workspaces/ShikaMath/include/Common.h \
   /workspaces/ShikaMath/include/Matrix4x4.h \
+  /workspaces/ShikaMath/include/Mesh.h \
+  /workspaces/ShikaMath/include/Quaternion.h \
+  /workspaces/ShikaMath/include/Rasterizer.h \
   /workspaces/ShikaMath/include/Vector3.h
 
 
 /workspaces/ShikaMath/include/Vector3.h:
 
-/workspaces/ShikaMath/include/Matrix4x4.h:
-
 /workspaces/ShikaMath/include/Rasterizer.h:
+
+/workspaces/ShikaMath/include/Matrix4x4.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h:
 
@@ -579,6 +580,8 @@ CMakeFiles/TestApp.dir/tests/MathTest.cpp.o: /workspaces/ShikaMath/tests/MathTes
 /usr/include/c++/13/bits/algorithmfwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+
+/workspaces/ShikaMath/include/Quaternion.h:
 
 /usr/include/c++/13/ext/alloc_traits.h:
 

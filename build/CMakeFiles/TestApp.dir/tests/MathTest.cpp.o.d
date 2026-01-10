@@ -289,5 +289,6 @@ CMakeFiles/TestApp.dir/tests/MathTest.cpp.o: \
  /usr/include/c++/13/pstl/execution_defs.h \
  /workspaces/ShikaMath/tests/../include/Vector3.h \
  /workspaces/ShikaMath/tests/../include/Matrix4x4.h \
- /workspaces/ShikaMath/include/Mesh.h \
- /workspaces/ShikaMath/include/Rasterizer.h
+ /workspaces/ShikaMath/tests/../include/Quaternion.h \
+ /workspaces/ShikaMath/tests/../include/Mesh.h \
+ /workspaces/ShikaMath/tests/../include/Rasterizer.h

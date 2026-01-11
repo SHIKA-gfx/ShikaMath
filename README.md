@@ -76,14 +76,24 @@ ShikaMath is not just a wrapper around standard math headers; it is engineered s
 * Ensures compatibility with SIMD registers and provides optimal data transfer layouts for future GPU vertex buffers.
 
 ## 📐 Comprehensive Linear Algebra
-* **Vector3:** Complete implementation including Cross Product, Dot Product, Normalization, and operator overloads.
-* **Matrix4x4:** Row-major storage optimized for SIMD broadcasting. Includes high-performance 4x4 matrix multiplication using row-linear combinations.
+* **Vector3:** Complete implementation including Cross Product, Dot Product, Normalization, and SIMD-accelerated operator overloads.
+* **Matrix4x4:** Row-major storage optimized for SIMD broadcasting. 
+    * Includes high-performance 4x4 matrix multiplication.
+    * Supports **Transpose** operations for GLSL/HLSL shader compatibility (Column-Major conversion).
+* **Quaternion:** Robust implementation for 3D rotations.
+    * Prevents **Gimbal Lock** issues inherent in Euler angles.
+    * Provides seamless conversion to `Matrix4x4` for the rendering pipeline.
 
 ## 🎥 3D Transformation Pipeline
-* Built-in support for fundamental transformations: **Translation**, **Rotation** (Euler angles), and **Scaling**.
-* Implements a **Left-Handed Camera System** compatible with DirectX standards:
-    * **View Matrix:** `LookAtLH`
-    * **Projection Matrix:** `PerspectiveFovLH` (Z-depth 0.0 to 1.0)
+* Built-in support for fundamental transformations: **Translation**, **Scaling**, and **Rotation** (via both Euler angles and Quaternions).
+* **Multi-Coordinate System Support:**
+    * Designed to bridge the gap between different graphics APIs (DirectX & Vulkan).
+* **Left-Handed System (DirectX Standard):**
+    * **View:** `LookAtLH`
+    * **Projection:** `PerspectiveFovLH` (Z-depth 0.0 to 1.0)
+* **Right-Handed System (Vulkan Standard):**
+    * **View:** `LookAtRH`
+    * **Projection:** `PerspectiveFovRH_Vulkan` (Includes Y-Flip correction & Z-depth 0.0 to 1.0)
 
 ## 🖼️ Visualization Tools
 * Includes a lightweight `Canvas` class and a **PPM image exporter** for immediate visual verification of mathematical results.
@@ -95,7 +105,7 @@ ShikaMath is not just a wrapper around standard math headers; it is engineered s
 
 * **Language** : Modern C++ (C++17 Standard)
 * **Optimization** : SIMD Intrinsics (SSE/AVX Ready), 16-byte Alignment
-* **Math Engine** : Custom Implemented Vector3 & Matrix4x4 (Row-Major)
+* **Math Engine** : Custom Implemented Vector3 & Matrix4x4 & Quaternion
 * **Rendering** : CPU Software Rendering (Rasterization) 
 * **Output Format** : PPM (Portable Pixel Map)
 * **Build System** : CMake 3.10+ 
@@ -137,7 +147,7 @@ make
 
 - [x] Quaternion implementation for robust rotations
 
-- [ ] Integration with Vulkan Rendering Pipeline(Next Steps)
+- [x] Integration with Vulkan Rendering Pipeline(Next Steps)
 
 ## 📄 License
 This project is licensed under the **MIT License**.  

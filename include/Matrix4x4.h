@@ -82,6 +82,32 @@ namespace Shika {
            return r;
         }
 
+        // Transpose for Graphics API (Row-Major -> Column-Major)
+        Matrix4x4 Transposed() const {
+            Matrix4x4 mat;
+            
+            // Load rows
+            __m128 row0 = row[0];
+            __m128 row1 = row[1];
+            __m128 row2 = row[2];
+            __m128 row3 = row[3];
+
+            // Transpose utilizing unpacking instructions
+            // Step 1: Interleave low/high parts
+            __m128 tmp0 = _mm_unpacklo_ps(row0, row1); // [r0.x, r1.x, r0.y, r1.y]
+            __m128 tmp1 = _mm_unpacklo_ps(row2, row3); // [r2.x, r3.x, r2.y, r3.y]
+            __m128 tmp2 = _mm_unpackhi_ps(row0, row1); // [r0.z, r1.z, r0.w, r1.w]
+            __m128 tmp3 = _mm_unpackhi_ps(row2, row3); // [r2.z, r3.z, r2.w, r3.w]
+
+            // Step 2: Move to correct rows
+            mat.row[0] = _mm_movelh_ps(tmp0, tmp1); // [r0.x, r1.x, r2.x, r3.x] -> Col 0
+            mat.row[1] = _mm_movehl_ps(tmp1, tmp0); // [r0.y, r1.y, r2.y, r3.y] -> Col 1
+            mat.row[2] = _mm_movelh_ps(tmp2, tmp3); // [r0.z, r1.z, r2.z, r3.z] -> Col 2
+            mat.row[3] = _mm_movehl_ps(tmp3, tmp2); // [r0.w, r1.w, r2.w, r3.w] -> Col 3
+
+            return mat;
+        }
+
 
        private : 
           // Helper for Multiplication One Row
@@ -218,6 +244,44 @@ namespace Shika {
             return mat;
           
         }
+
+       public :       
+          // --- View&Projection ---
+          // View Matrix (Right-Handed) 
+          static Matrix4x4 LookAtRH(const Vector3& eye, const Vector3& focus, const Vector3& up) {
+            Vector3 f = (eye-focus).Normalized(); // Forward
+            Vector3 r = up.Cross(f).Normalized(); // Right
+            Vector3 u = f.Cross(r); // Up
+
+            Matrix4x4 mat;
+            // Row-Major
+            mat.row[0] = _mm_set_ps(0, f.x, u.x, r.x);
+            mat.row[1] = _mm_set_ps(0, f.y, u.y, r.y);
+            mat.row[2] = _mm_set_ps(0, f.z, u.z, r.z);
+            // Translation
+            float valX = -r.Dot(eye);
+            float valY = -u.Dot(eye);
+            float valZ = -f.Dot(eye);
+            mat.row[3] = _mm_set_ps(1, valZ, valY, valX);
+
+            return mat;
+          }
+          // Projection Matrix (Reft-Handed) + Y-Flip 
+          static Matrix4x4 PerspectiveFovRH_Vulkan(float fovAngleY, float aspectRatio, float nearZ, float farZ) {
+            Matrix4x4 mat;
+
+            float rad = fovAngleY;
+            float h = 1.0f / std::tan(rad / 2.0f); // Cotangent
+            float w = h / aspectRatio;
+            float q = farZ / (nearZ - farZ);
+
+            mat.row[0] = _mm_set_ps(0, 0, 0, w);
+            mat.row[1] = _mm_set_ps(0, 0, -h, 0);
+            mat.row[2] = _mm_set_ps(-1, q, 0, 0);
+            mat.row[3] = _mm_set_ps(0, q * nearZ, 0, 0);
+
+            return mat;
+          }
 
     };
 }

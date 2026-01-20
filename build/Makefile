@@ -190,29 +190,29 @@ src/Vector3.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ShikaMath.dir/build.make CMakeFiles/ShikaMath.dir/src/Vector3.cpp.s
 .PHONY : src/Vector3.cpp.s
 
-tests/MathTest.o: tests/MathTest.cpp.o
-.PHONY : tests/MathTest.o
+tests/Benchmark.o: tests/Benchmark.cpp.o
+.PHONY : tests/Benchmark.o
 
 # target to build an object file
-tests/MathTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestApp.dir/build.make CMakeFiles/TestApp.dir/tests/MathTest.cpp.o
-.PHONY : tests/MathTest.cpp.o
+tests/Benchmark.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestApp.dir/build.make CMakeFiles/TestApp.dir/tests/Benchmark.cpp.o
+.PHONY : tests/Benchmark.cpp.o
 
-tests/MathTest.i: tests/MathTest.cpp.i
-.PHONY : tests/MathTest.i
+tests/Benchmark.i: tests/Benchmark.cpp.i
+.PHONY : tests/Benchmark.i
 
 # target to preprocess a source file
-tests/MathTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestApp.dir/build.make CMakeFiles/TestApp.dir/tests/MathTest.cpp.i
-.PHONY : tests/MathTest.cpp.i
+tests/Benchmark.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestApp.dir/build.make CMakeFiles/TestApp.dir/tests/Benchmark.cpp.i
+.PHONY : tests/Benchmark.cpp.i
 
-tests/MathTest.s: tests/MathTest.cpp.s
-.PHONY : tests/MathTest.s
+tests/Benchmark.s: tests/Benchmark.cpp.s
+.PHONY : tests/Benchmark.s
 
 # target to generate assembly for a file
-tests/MathTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestApp.dir/build.make CMakeFiles/TestApp.dir/tests/MathTest.cpp.s
-.PHONY : tests/MathTest.cpp.s
+tests/Benchmark.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TestApp.dir/build.make CMakeFiles/TestApp.dir/tests/Benchmark.cpp.s
+.PHONY : tests/Benchmark.cpp.s
 
 # Help Target
 help:
@@ -230,9 +230,9 @@ help:
 	@echo "... src/Vector3.o"
 	@echo "... src/Vector3.i"
 	@echo "... src/Vector3.s"
-	@echo "... tests/MathTest.o"
-	@echo "... tests/MathTest.i"
-	@echo "... tests/MathTest.s"
+	@echo "... tests/Benchmark.o"
+	@echo "... tests/Benchmark.i"
+	@echo "... tests/Benchmark.s"
 .PHONY : help
 
 

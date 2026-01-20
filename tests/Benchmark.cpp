@@ -1,53 +1,58 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
-#include <immintrin.h> // SIMD
+#include <immintrin.h>
 
-// Simple Vector3 struct
-struct alignas(16) Vector3 {
-    __m128 v;
+// Simple Quaternion struct
+struct Quaternion {
+    float x, y, z, w;
 
-    Vector3() : v(_mm_setzero_ps()) {}
-    Vector3(__m128 _v) : v(_v) {}
-    Vector3(float x, float y, float z) : v(_mm_set_ps(0, z, y, x)) {}
-
-    // Add operator
-    Vector3 operator+(const Vector3& other) const {
-        return Vector3(_mm_add_ps(v, other.v));
-    }
+    Quaternion() : x(0.0f), y(0.0f), z(0.0f), w(1.0f) {}
+    Quaternion(float _x, float _y, float _z, float _w) : x(_x), y(_y), z(_z), w(_w) {} 
+    
 };
 
 // ---------------------------------------------------------
 
 // 1. Call by Reference(const)
-Vector3 Add_ByRef(const Vector3& a, const Vector3& b) {
-    return a + b;
-}
+Quaternion Mul_ByRef (const Quaternion& a, const Quaternion& b) {
+            return Quaternion(
+                a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+                a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+                a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+                a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
+            );
+        }
 
 // 2. Call by Value 
-Vector3 Add_ByVal(Vector3 a, Vector3 b) {
-    return Vector3(_mm_add_ps(a.v, b.v));
-}
+Quaternion Mul_ByVal (Quaternion a, Quaternion b) {
+            return Quaternion(
+                a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+                a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+                a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+                a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
+            );
+        }
 
 // ---------------------------------------------------------
 
 int main() {
     const int ITERATIONS = 100'000'000; 
     
-    Vector3 v1(1.0f, 2.0f, 3.0f);
-    Vector3 v2(4.0f, 5.0f, 6.0f);
+    Quaternion q1(1.0f, 2.0f, 3.0f, 4.0f);
+    Quaternion q2(5.0f, 6.0f, 7.0f, 8.0f);
     
     volatile float prevent_opt = 0.0f; 
 
-    std::cout << "=== Vector3 Passing Benchmark (Iterations: " << ITERATIONS << ") ===\n\n";
+    std::cout << "=== Quaternion Passing Benchmark (Iterations: " << ITERATIONS << ") ===\n\n";
 
     // 1. Reference Test
     {
         auto start = std::chrono::high_resolution_clock::now();
         
-        Vector3 result;
+        Quaternion result;
         for (int i = 0; i < ITERATIONS; ++i) {
-            result = Add_ByRef(v1, v2); 
+            result = Mul_ByRef(q1, q2); 
         }
         
         auto end = std::chrono::high_resolution_clock::now();
@@ -63,9 +68,9 @@ int main() {
     {
         auto start = std::chrono::high_resolution_clock::now();
         
-        Vector3 result;
+        Quaternion result;
         for (int i = 0; i < ITERATIONS; ++i) {
-            result = Add_ByVal(v1, v2);
+            result = Mul_ByVal(q1, q2);
         }
         
         auto end = std::chrono::high_resolution_clock::now();

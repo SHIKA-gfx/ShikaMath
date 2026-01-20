@@ -19,7 +19,7 @@ namespace Shika {
             :x(_x), y(_y), z(_z), w(_w) {} 
 
         // 3. With Axis-Angle
-        static Quaternion RotationAxis(const Vector3& axis, float angleRadian) {
+        static Quaternion RotationAxis(Vector3 axis, float angleRadian) {
             Vector3 n = axis.Normalized();
             float sinHalf = std::sin(angleRadian * 0.5f);
             float cosHalf = std::cos(angleRadian * 0.5f);
@@ -29,7 +29,7 @@ namespace Shika {
 
         public : 
         // Quaternion Multiplication
-        Quaternion operator* (const Quaternion& other) const {
+        Quaternion operator* (Quaternion other) const {
             return Quaternion(
                 w * other.x + x * other.w + y * other.z - z * other.y,
                 w * other.y - x * other.z + y * other.w + z * other.x,

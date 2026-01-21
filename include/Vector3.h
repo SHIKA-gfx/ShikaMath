@@ -59,7 +59,7 @@ namespace Shika {
          // Vector Geometry Functions
          // Dot Product
          float Dot(Vector3 other) const {
-            __m128 mul = _mm_dp_ps(v, other.v, 0x7F);
+            __m128 mul = _mm_dp_ps(v, other.v, 0x77);
             return _mm_cvtss_f32(mul);
          }
 
